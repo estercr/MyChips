@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -15,18 +15,22 @@ import uuid from 'react-native-uuid';
 import {format, parseISO, isWithinInterval} from 'date-fns';
 
 type RootStackParamList = {
-  Expenses: {categoryId: string};
+  Expenses: { categoryId: string };
 };
 
 type ExpensesScreenRouteProp = RouteProp<RootStackParamList, 'Expenses'>;
 
 export default function ExpensesScreen() {
   const route = useRoute<ExpensesScreenRouteProp>();
-  const {categoryId} = route.params;
-  const {expenses, addExpense, categories} = useCategoryStore();
+  const { categoryId } = route.params;
+  const {
+    expenses,
+    addExpense,
+    categories,
+  } = useCategoryStore();
 
-  const category = categories.find(cat => cat.id === categoryId);
-  const categoryExpenses = expenses.filter(e => e.categoryId === categoryId);
+  const category = categories.find((cat) => cat.id === categoryId);
+  const categoryExpenses = expenses.filter((e) => e.categoryId === categoryId);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState('');
@@ -61,13 +65,11 @@ export default function ExpensesScreen() {
     });
   });
 
-  const renderItem = ({item}: {item: Expense}) => (
+  const renderItem = ({ item }: { item: Expense }) => (
     <View style={styles.item}>
       <Text style={styles.itemTitle}>{item.title}</Text>
       <Text style={styles.itemText}>R$ {item.amount.toFixed(2)}</Text>
-      <Text style={styles.itemDate}>
-        Data: {format(parseISO(item.date), 'dd/MM/yyyy')}
-      </Text>
+      <Text style={styles.itemDate}>Data: {format(parseISO(item.date), 'dd/MM/yyyy')}</Text>
     </View>
   );
 
@@ -91,17 +93,13 @@ export default function ExpensesScreen() {
 
       <FlatList
         data={filteredExpenses}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         renderItem={renderItem}
-        ListEmptyComponent={
-          <Text style={styles.noData}>Nenhuma despesa registrada.</Text>
-        }
-        contentContainerStyle={{paddingBottom: 20}}
+        ListEmptyComponent={<Text style={styles.noData}>Nenhuma despesa registrada.</Text>}
+        contentContainerStyle={{ paddingBottom: 20 }}
       />
 
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => setModalVisible(true)}>
+      <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
         <Text style={styles.addButtonText}>+ Adicionar Despesa</Text>
       </TouchableOpacity>
 
@@ -128,9 +126,7 @@ export default function ExpensesScreen() {
               onChangeText={setDate}
               style={styles.input}
             />
-            <TouchableOpacity
-              style={styles.saveButton}
-              onPress={handleAddExpense}>
+            <TouchableOpacity style={styles.saveButton} onPress={handleAddExpense}>
               <Text style={styles.saveButtonText}>Salvar</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setModalVisible(false)}>

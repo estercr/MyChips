@@ -14,7 +14,7 @@ import ExpensesScreen from '../views/ExpensesScreen';
 export type RootStackParamList = {
   Dashboard: undefined;
   Categories: undefined;
-  Expenses: undefined;
+  Expenses: { categoryId: string };
 };
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
@@ -31,7 +31,7 @@ export default function AppNavigator() {
           <Tab.Screen name="Categories" component={CategoriesScreen} />
           <Tab.Screen name="Expenses" component={ExpensesScreen} />
         </Tab.Navigator>
-      </NavigationContainer>
+    </NavigationContainer>
     </SafeAreaProvider>
   );
 }

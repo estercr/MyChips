@@ -11,8 +11,14 @@ import {
 import { useCategoryStore } from '../viewmodels/useCategoryStore';
 import { Category } from '../models/Category';
 import uuid from 'react-native-uuid';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../navigation/AppNavigator';
+
+
 
 export default function CategoriesScreen() {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { categories, addCategory } = useCategoryStore();
   const [modalVisible, setModalVisible] = useState(false);
   const [name, setName] = useState('');
@@ -31,10 +37,14 @@ export default function CategoriesScreen() {
   };
 
   const renderItem = ({ item }: { item: Category }) => (
-    <View style={[styles.card, { backgroundColor: item.color }]}>
+    <TouchableOpacity
+      style={[styles.card, { backgroundColor: item.color }]}
+      onPress={() => navigation.navigate('Expenses', { categoryId: item.id })}
+    >
       <Text style={styles.cardText}>{item.name}</Text>
-    </View>
+    </TouchableOpacity>
   );
+  
 
   return (
     <View style={styles.container}>
