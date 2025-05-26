@@ -9,7 +9,7 @@ import {useColorScheme} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import DashboardScreen from '../views/Dashboard/DashboardScreen';
 import CategoriesScreen from '../views/Categories/CategoriesScreen';
-import ExpensesScreen from '../views/ExpensesScreen';
+import ExpensesScreen from '../views/Expenses/ExpensesScreen';
 
 export type RootStackParamList = {
   Dashboard: undefined;

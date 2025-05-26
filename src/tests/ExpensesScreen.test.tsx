@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import ExpensesScreen from '../views/ExpensesScreen';
+import ExpensesScreen from '../views/Expenses/ExpensesScreen';
 import { useCategoryStore } from '../viewmodels/useCategoryStore';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
