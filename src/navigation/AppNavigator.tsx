@@ -7,8 +7,8 @@ import {
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useColorScheme} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import DashboardScreen from '../views/DashboardScreen';
-import CategoriesScreen from '../views/CategoriesScreen';
+import DashboardScreen from '../views/Dashboard/DashboardScreen';
+import CategoriesScreen from '../views/Categories/CategoriesScreen';
 import ExpensesScreen from '../views/ExpensesScreen';
 
 export type RootStackParamList = {

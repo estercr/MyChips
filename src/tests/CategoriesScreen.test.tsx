@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, fireEvent} from '@testing-library/react-native';
-import CategoriesScreen from '../views/CategoriesScreen';
+import CategoriesScreen from '../views/Categories/CategoriesScreen';
 import {useCategoryStore} from '../viewmodels/useCategoryStore';
 import {NavigationContainer} from '@react-navigation/native';
 

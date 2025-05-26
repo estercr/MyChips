@@ -4,16 +4,15 @@ import {
   Text,
   FlatList,
   TextInput,
-  StyleSheet,
   TouchableOpacity,
   Modal,
 } from 'react-native';
 import {RouteProp, useRoute} from '@react-navigation/native';
-import {useCategoryStore} from '../viewmodels/useCategoryStore';
-import {Expense} from '../models/Expense';
+import {useCategoryStore} from '../../viewmodels/useCategoryStore';
+import {Expense} from '../../models/Expense';
 import uuid from 'react-native-uuid';
 import {format, parseISO, isWithinInterval} from 'date-fns';
-
+import {styles} from './styles';
 type RootStackParamList = {
   Expenses: { categoryId: string };
 };
@@ -96,7 +95,7 @@ export default function ExpensesScreen() {
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         ListEmptyComponent={<Text style={styles.noData}>Nenhuma despesa registrada.</Text>}
-        contentContainerStyle={{ paddingBottom: 20 }}
+        contentContainerStyle={styles.contentContainer}
       />
 
       <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
@@ -139,92 +138,4 @@ export default function ExpensesScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  filterLabel: {
-    fontSize: 14,
-    marginTop: 10,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
-    borderRadius: 6,
-    marginBottom: 10,
-  },
-  item: {
-    backgroundColor: '#f8f8f8',
-    padding: 15,
-    borderRadius: 6,
-    marginBottom: 10,
-  },
-  itemTitle: {
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  itemText: {
-    color: '#333',
-  },
-  itemDate: {
-    fontStyle: 'italic',
-    fontSize: 12,
-  },
-  addButton: {
-    backgroundColor: '#1e90ff',
-    padding: 15,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  addButtonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'rgba(0,0,0,0.3)',
-    padding: 20,
-  },
-  modalContent: {
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 20,
-  },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 15,
-  },
-  saveButton: {
-    backgroundColor: '#2ecc71',
-    padding: 12,
-    borderRadius: 6,
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  saveButtonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  cancelText: {
-    color: '#e74c3c',
-    textAlign: 'center',
-    marginTop: 5,
-  },
-  noData: {
-    marginTop: 20,
-    fontStyle: 'italic',
-    color: '#888',
-    textAlign: 'center',
-  },
-});
+
