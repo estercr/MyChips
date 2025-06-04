@@ -1,1 +1,0 @@
-// Componente para exibir categorias

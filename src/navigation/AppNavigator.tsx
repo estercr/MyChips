@@ -19,7 +19,9 @@ export type RootStackParamList = {
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
-
+//TODO: Implementar ícones para as abas
+//TODO: Esse dark mode é legal mas não está funcionando direito, talvez seja por causa do tema do react navigation. Verificar isso depois
+//TODO: ajustar navegação.
 export default function AppNavigator() {
   const scheme = useColorScheme();
 

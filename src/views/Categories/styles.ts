@@ -34,6 +34,16 @@ export const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
+   editHint: {
+    fontSize: 10,
+    color: '#fff',
+    marginTop: 4,
+    fontStyle: 'italic',
+  },
+   label: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -78,5 +88,16 @@ export const styles = StyleSheet.create({
   },
   contentContainer: {
     gap: 16,
+  },
+  deleteButton: {
+    backgroundColor: '#e74c3c',
+    padding: 12,
+    borderRadius: 6,
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  deleteButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
   },
 });

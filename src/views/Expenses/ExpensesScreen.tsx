@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   Modal,
+  Alert,
 } from 'react-native';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {useCategoryStore} from '../../viewmodels/useCategoryStore';
@@ -13,23 +14,21 @@ import {Expense} from '../../models/Expense';
 import uuid from 'react-native-uuid';
 import {format, parseISO, isWithinInterval} from 'date-fns';
 import {styles} from './styles';
+import Feather from 'react-native-vector-icons/Feather';
+
 type RootStackParamList = {
-  Expenses: { categoryId: string };
+  Expenses: {categoryId: string};
 };
 
 type ExpensesScreenRouteProp = RouteProp<RootStackParamList, 'Expenses'>;
 
 export default function ExpensesScreen() {
   const route = useRoute<ExpensesScreenRouteProp>();
-  const { categoryId } = route.params;
-  const {
-    expenses,
-    addExpense,
-    categories,
-  } = useCategoryStore();
+  const {categoryId} = route.params;
+  const {expenses, addExpense, categories, removeExpense} = useCategoryStore();
 
-  const category = categories.find((cat) => cat.id === categoryId);
-  const categoryExpenses = expenses.filter((e) => e.categoryId === categoryId);
+  const category = categories.find(cat => cat.id === categoryId);
+  const categoryExpenses = expenses.filter(e => e.categoryId === categoryId);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState('');
@@ -53,6 +52,21 @@ export default function ExpensesScreen() {
     setModalVisible(false);
   };
 
+  const handleDeleteExpense = (expenseId: string) => {
+    Alert.alert(
+      'Excluir Despesa',
+      'Tem certeza que deseja excluir esta despesa?',
+      [
+        {text: 'Cancelar', style: 'cancel'},
+        {
+          text: 'Excluir',
+          style: 'destructive',
+          onPress: () => removeExpense(expenseId),
+        },
+      ],
+    );
+  };
+
   const filteredExpenses = categoryExpenses.filter(e => {
     if (!filterStart || !filterEnd) {
       return true;
@@ -64,11 +78,21 @@ export default function ExpensesScreen() {
     });
   });
 
-  const renderItem = ({ item }: { item: Expense }) => (
+  const renderItem = ({item}: {item: Expense}) => (
+    //TODO: trasnformar isso em um componente separado
+    //TODO: adicionar formatação de valor
+    //TODO: adicionar formatação de data e incluir calendário
     <View style={styles.item}>
       <Text style={styles.itemTitle}>{item.title}</Text>
       <Text style={styles.itemText}>R$ {item.amount.toFixed(2)}</Text>
-      <Text style={styles.itemDate}>Data: {format(parseISO(item.date), 'dd/MM/yyyy')}</Text>
+      <Text style={styles.itemDate}>
+        Data: {format(parseISO(item.date), 'dd/MM/yyyy')}
+      </Text>
+      <TouchableOpacity
+        style={styles.trashIcon}
+        onPress={() => handleDeleteExpense(item.id)}>
+       <Feather name="trash-2" size={18} color="#e74c3c" />
+      </TouchableOpacity>
     </View>
   );
 
@@ -92,13 +116,17 @@ export default function ExpensesScreen() {
 
       <FlatList
         data={filteredExpenses}
-        keyExtractor={(item) => item.id}
+        keyExtractor={item => item.id}
         renderItem={renderItem}
-        ListEmptyComponent={<Text style={styles.noData}>Nenhuma despesa registrada.</Text>}
+        ListEmptyComponent={
+          <Text style={styles.noData}>Nenhuma despesa registrada.</Text>
+        }
         contentContainerStyle={styles.contentContainer}
       />
 
-      <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => setModalVisible(true)}>
         <Text style={styles.addButtonText}>+ Adicionar Despesa</Text>
       </TouchableOpacity>
 
@@ -125,7 +153,9 @@ export default function ExpensesScreen() {
               onChangeText={setDate}
               style={styles.input}
             />
-            <TouchableOpacity style={styles.saveButton} onPress={handleAddExpense}>
+            <TouchableOpacity
+              style={styles.saveButton}
+              onPress={handleAddExpense}>
               <Text style={styles.saveButtonText}>Salvar</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setModalVisible(false)}>
@@ -137,5 +167,3 @@ export default function ExpensesScreen() {
     </View>
   );
 }
-
-

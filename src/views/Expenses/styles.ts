@@ -22,11 +22,21 @@ export const styles = StyleSheet.create({
     borderRadius: 6,
     marginBottom: 10,
   },
+  trashIcon: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 1,
+  },
+  trashText: {
+    fontSize: 14,
+  },
   item: {
     backgroundColor: '#f8f8f8',
     padding: 15,
-    borderRadius: 6,
+    borderRadius: 10,
     marginBottom: 10,
+    position: 'relative',
   },
   itemTitle: {
     fontWeight: 'bold',
@@ -90,5 +100,5 @@ export const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingBottom: 20,
-  }
+  },
 });
